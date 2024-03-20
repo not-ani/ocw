@@ -104,3 +104,8 @@ export const hasSubjectPermission = (
     subjectPermissions.includes(permission),
   );
 };
+
+export function extractNotionId(url: string) {
+  const match = url.match(/([a-f0-9]{32})/);
+  return match ? `a${match[1]}` : null;
+}

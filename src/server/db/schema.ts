@@ -1,4 +1,5 @@
 import { SubjectPermission, CoursePermission } from "@/types/permissions";
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { relations, sql } from "drizzle-orm";
 import {
   boolean,
@@ -15,6 +16,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 import { type UserPermissions } from "@/types/permissions";
+import { z } from "zod";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -137,10 +139,14 @@ export const units = createTable('units', {
   isPublic: boolean('is_public').default(false).notNull(),
 });
 
+export type Units = typeof units.$inferSelect;
+export type Course = typeof courses.$inferSelect
+
 // Define Lessons table
 export const lessons = createTable('lessons', {
   id: serial('id').primaryKey(),
   unitId: integer('unit_id').notNull(),
+  position: integer('position').notNull().default(100),
   name: text('name').notNull(),
   embedId: text('embedId').notNull(),
   isPublic: boolean('is_public').default(false).notNull(),
@@ -210,3 +216,29 @@ export const subjectRelations = relations(courseTracker, ({ one }) => ({
     references: [courses.id],
   }),
 }));
+
+
+export const updateCourseSchema = createSelectSchema(courses, {
+  name: z.string().optional(),
+  subjectId: z.number().optional(),
+  description: z.string().optional(),
+  isPublic: z.boolean().optional(),
+  imageUrl: z.string().optional(),
+})
+
+export const updateLessonSchema = createSelectSchema(lessons, {
+  name: z.string().optional(),
+  unitId: z.number().optional(),
+  isPublic: z.boolean().optional(),
+  embedId: z.string().optional(),
+  position: z.number().optional()
+})
+
+export const updateUnitSchema = createSelectSchema(units, {
+  name: z.string().optional(),
+  isPublic: z.boolean().optional(),
+  unitNumber: z.number().optional(),
+  courseId: z.number().optional()
+})
+
+export type Lessons = typeof lessons.$inferSelect

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { SearchInput } from "./search-input";
 import { UserAccountNav } from "@/components/user-account-nav";
 import { Session } from "next-auth";
+import SignInButton from "./SignInButton";
 
 export const NavbarRoutes = (props: {
   session: Session
@@ -44,8 +45,7 @@ export const NavbarRoutes = (props: {
               image: session.user.image,
               email: session.user.email
             }}
-          /> : null
-        }
+          /> : <SignInButton />}
       </div>
     </>
   )

@@ -1,8 +1,9 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
-import { courses } from "@/server/db/schema";
-import { eq, sql } from "drizzle-orm";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { courses, lessons, units, updateCourseSchema } from "@/server/db/schema";
+import { asc, eq, sql } from "drizzle-orm";
 import { db } from "@/server/db";
+import { revalidatePath } from "next/cache";
 
 
 export async function getDashboardData() {
@@ -59,7 +60,40 @@ export const coursesRouter = createTRPCRouter({
         }
 
       })
+    }),
+  update: protectedProcedure
+    .input(updateCourseSchema)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.update(courses).set(input).where(eq(courses.id, input.id))
+      revalidatePath(`/dashboard/course/${input.id}`)
     })
+  ,
+  delete: protectedProcedure
+    .input(z.object({
+      id: z.number()
+    })).mutation(async ({ ctx, input }) => {
+      await ctx.db.delete(courses).where(eq(courses.id, input.id))
+    }),
+  getSidebar: publicProcedure
+    .input(
+      z.object({
+        courseId: z.number(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { courseId } = input;
+      const data = await ctx.db.query.units.findMany({
+        where: (units, { eq }) => eq(units.courseId, courseId),
+        orderBy: asc(units.unitNumber),
+        with: {
+          lessons: {
+            orderBy: asc(lessons.position),
+          },
+        },
+      });
 
+      return data;
+    }),
 
 })
+
