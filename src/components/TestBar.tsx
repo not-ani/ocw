@@ -6,6 +6,7 @@ import { Button } from './ui/button';
 import { PanelLeft, PanelRight } from 'lucide-react';
 import { RouterOutputs } from '@/types/trpc';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { cn } from '@/lib/utils';
 
 
 export default function Sidebar(props: {
@@ -36,7 +37,7 @@ export default function Sidebar(props: {
   return (
     <div className="flex flex-row h-full">
       <div
-        className={`absolute top-0  bg-white lg:bg-white/30 lg:backdrop-blur-xl h-full lg:h-auto lg:relative z-[999] duration-300 transition-all dark:bg-black lg:dark:bg-black/30 w-80 border-r border-r-neutral-200 dark:border-r-neutral-800 ${isVisible ? `block` : `hidden`} h-full`}
+        className={`absolute top-0  bg-white lg:bg-white/30 lg:backdrop-blur-xl h-full lg:h-auto lg:relative z-[999] duration-300 transition-all dark:bg-black lg:dark:bg-black/30 w-80 border-r border-r-neutral-200 dark:border-r-neutral-800 ${isVisible ? `left-0` : `-left-80 hidden`} h-full`}
         style={{ transition: 'left 0.3s ease-in-out' }} // Ensure smooth transition
       >
         <div className="w-full h-full overflow-hidden">
@@ -93,6 +94,7 @@ export default function Sidebar(props: {
       <Button
         onClick={toggleVisibility}
         variant={"ghost"}
+        className={cn(`${isVisible ? `left-0` : `-left-1`}`)}
         style={{ transition: 'right 0.3s ease-in-out' }} // Smooth transition for the button as well
       >
 
