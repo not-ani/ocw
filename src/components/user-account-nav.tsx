@@ -37,11 +37,11 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/dashboard">Home</Link>
+          <Link href="/home">Home</Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <Link href="/p/add">Add Partner</Link>
+          <Link href="/dashboard">Dashboard</Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
