@@ -10,6 +10,7 @@ import { SearchInput } from "./search-input";
 import { UserAccountNav } from "@/components/user-account-nav";
 import { Session } from "next-auth";
 import SignInButton from "./SignInButton";
+import { ModeToggle } from "@/components/color";
 
 export const NavbarRoutes = (props: {
   session: Session | null
@@ -39,6 +40,7 @@ export const NavbarRoutes = (props: {
             </Button>
           </Link>
         ) : null}
+        <ModeToggle />
         {
           session?.user ? <UserAccountNav
             user={{
