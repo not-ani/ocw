@@ -2,7 +2,7 @@ import React, { cache } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import { db } from "@/server/db";
 import Image from "next/image";
-import { and, arrayContains, arrayOverlaps, asc, eq, not, notIlike, notLike } from "drizzle-orm";
+import { and, arrayContains, asc, eq, not } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import {
   Accordion,

@@ -1,5 +1,4 @@
-import { SubjectPermission, CoursePermission } from "@/types/permissions";
-import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
+import { createSelectSchema } from 'drizzle-zod';
 import { relations, sql } from "drizzle-orm";
 import {
   boolean,

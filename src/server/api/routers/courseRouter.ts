@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { courseTracker, courses, lessons, subjects, units, updateCourseSchema, users } from "@/server/db/schema";
-import { and, arrayContains, arrayOverlaps, asc, eq, like, not, notLike, or, sql } from "drizzle-orm";
+import { and, arrayContains, arrayOverlaps, asc, eq, not } from "drizzle-orm";
 import { db } from "@/server/db";
 import { revalidatePath } from "next/cache";
-import { ACTIONS, CoursePermission, getSenario as getPermissions, permissions } from "@/types/permissions";
+import { ACTIONS, getSenario as getPermissions } from "@/types/permissions";
 import { filterColumn } from "@/lib/utils";
 
 export async function getAdminData({
