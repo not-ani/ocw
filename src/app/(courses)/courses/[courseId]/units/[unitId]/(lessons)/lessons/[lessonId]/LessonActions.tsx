@@ -13,21 +13,21 @@ import { handleError } from "@/lib/utils";
 interface ChapterActionsProps {
   disabled: boolean;
   courseId: number;
-  unitId: number;
+  lessonId: number;
   isPublished: boolean;
 };
 
-export const ChapterActions = ({
+export const LessonsAction = ({
   disabled,
   courseId,
-  unitId: chapterId,
+  lessonId: chapterId,
   isPublished
 }: ChapterActionsProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const { mutate: update } = api.units.update.useMutation({
+  const { mutate: update } = api.lessons.update.useMutation({
     onSuccess() {
-      toast.success("Updated Unit Visiblity")
+      toast.success("Updated Lesson Visiblity")
       router.refresh()
     },
 
@@ -37,9 +37,9 @@ export const ChapterActions = ({
     },
   })
 
-  const { mutate: deleteUnit } = api.units.delete.useMutation({
+  const { mutate: deleteUnit } = api.lessons.delete.useMutation({
     onSuccess() {
-      toast.success("Updated Unit Title")
+      toast.success("Deleted Lessons")
     },
 
     onError(error) {

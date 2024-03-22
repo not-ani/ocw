@@ -33,5 +33,11 @@ export const lessonsRouter = createTRPCRouter({
       })
     }),
 
+  delete: protectedProcedure
+    .input(z.object({
+    id: z.number()
+  })).mutation(async ({ ctx, input }) => {
+    await ctx.db.delete(lessons).where(eq(lessons.id,input.id))
+  })
 
 })

@@ -1,7 +1,8 @@
 import React, { cache } from "react";
+import { unstable_noStore as noStore } from "next/cache";
 import { db } from "@/server/db";
 import Image from "next/image";
-import { asc } from "drizzle-orm";
+import { and, arrayContains, arrayOverlaps, asc, eq, not, notIlike, notLike } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
@@ -10,9 +11,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Link from "next/link";
+import { courseTracker, users } from "@/server/db/schema";
+import { CoursePermissions } from "@/types/permissions";
 
 const getCourse = cache(async (courseId: number) => {
-  const { course, units } = await db.transaction(async (tx) => {
+  noStore()
+  const { course, contributors, units } = await db.transaction(async (tx) => {
+
     const course = await tx.query.courses.findFirst({
       where: (course, { eq }) => eq(course.id, courseId),
       with: {
@@ -33,18 +38,31 @@ const getCourse = cache(async (courseId: number) => {
       },
       orderBy: (units) => asc(units.unitNumber),
     });
-
+    const contributors = await db.select({
+      id: users.id,
+      name: users.id,
+      image: users.image
+    })
+      .from(users)
+      .leftJoin(courseTracker,
+        and(eq(courseTracker.courseId, course!.id),
+          not(arrayContains(courseTracker.permissions, ["none"]
+          ))))
     return {
       units,
       course,
+      contributors
     };
   });
 
   return {
     course,
     units,
+    contributors
   };
 });
+
+
 /**
  * An overview of all units under a course. i.e Unit 1, Unit 2, Unit 3 under AP Bio
  *
@@ -70,14 +88,14 @@ export default async function Page(props: {
       <div className="flex w-full justify-center p-5">
         <Image
           src={course.imageUrl}
-          width={200}
+          width={300}
           height={300}
           alt={String(course.id)}
           className="rounded-xl"
         />
-        <div className="ml-4">
+        <div className="ml-4 flex flex-col">
           <h3 className="text-3xl font-bold">{course.name}</h3>
-          <Badge>{course.subject.field}</Badge>
+          <Badge className="w-[80px]">{course.subject.field}</Badge>
         </div>
       </div>
       <div className="my-4 p-4">

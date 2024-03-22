@@ -10,7 +10,7 @@ import DiscordProvider from "next-auth/providers/google";
 import { env } from "@/env";
 import { db } from "@/server/db";
 import { createTable } from "@/server/db/schema";
-import { CoursePermission, SubjectPermission, UserPermissions } from "@/types/permissions";
+import { CoursePermission, CoursePermissions, SubjectPermission, SubjectPermissions, UserPermissions } from "@/types/permissions";
 import { redirect } from "next/navigation";
 
 
@@ -72,7 +72,7 @@ export async function getCoursePermissions(
 
   return courses.map(({ courseId, permissions }) => ({
     id: courseId,
-    roles: permissions,
+    roles: permissions as CoursePermissions,
   }));
 }
 
@@ -85,7 +85,7 @@ export async function getSubjectPermissions(
 
   return subjects.map(({ subjectId, permissions }) => ({
     id: subjectId,
-    roles: permissions,
+    roles: permissions as SubjectPermissions,
   }));
 }
 
@@ -133,14 +133,14 @@ export const authOptions: NextAuthOptions = {
  */
 export const getServerAuthSession = () => getServerSession(authOptions);
 
-export const getUserAuth = async () => {
+export const getCurrentUser = async () => {
   const session = await getServerSession(authOptions);
   const user = session?.user
-  return { user };
+  return session;
 };
 
 export const checkAuth = async () => {
   const session = await getServerSession();
-  if (!session) redirect("/api/auth/signin");
+  if (!session?.user) redirect("/api/auth/signin");
 };
-export type AuthSession = Awaited<ReturnType<typeof getUserAuth>>;
+export type AuthSession = Awaited<ReturnType<typeof getCurrentUser>>;

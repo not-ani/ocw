@@ -1,9 +1,26 @@
 import { CoursesList } from "@/components/course-list";
 import { getDashboardData } from "@/server/api/routers/courseRouter";
+import { z } from "zod";
 
-export default async function Dashboard() {
-  const courses = await getDashboardData()
+const searchParamsSchema = z.object({
+  name: z.string().optional(),
+  subjectId: z.string().optional()
+})
 
+export default async function Dashboard({
+  searchParams
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
+  const {
+    name,
+    subjectId
+  } = searchParamsSchema.parse(searchParams)
+
+  const courses = await getDashboardData({
+    name: name,
+    subjectId: subjectId ? parseInt(subjectId) : undefined
+  })
 
   return (
     <div className="p-6 space-y-4">

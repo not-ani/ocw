@@ -1,14 +1,96 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
-import { courses, lessons, units, updateCourseSchema } from "@/server/db/schema";
-import { asc, eq, sql } from "drizzle-orm";
+import { courseTracker, courses, lessons, subjects, units, updateCourseSchema, users } from "@/server/db/schema";
+import { and, arrayContains, arrayOverlaps, asc, eq, like, not, notLike, or, sql } from "drizzle-orm";
 import { db } from "@/server/db";
 import { revalidatePath } from "next/cache";
+import { ACTIONS, CoursePermission, getSenario as getPermissions, permissions } from "@/types/permissions";
+import { filterColumn } from "@/lib/utils";
+
+export async function getAdminData({
+  name,
+  subjectId,
+  currentUserId,
+  isActivities = false,
+}: {
+  name: string | undefined,
+  subjectId: number | undefined,
+  currentUserId: string,
+  isActivities: boolean,
+}) {
+  if (isActivities) {
+    const data = await db.select({
+      id: courses.id,
+      name: courses.name,
+      subjectId: courses.subjectId,
+      imageUrl: courses.imageUrl,
+      description: courses.description,
+      subject: {
+        name: subjects.name
+      },
+    })
+      .from(courseTracker)
+      .where(
+        and(
+          eq(courseTracker.userId, currentUserId),
+        )
+      )
+      .innerJoin(courses,
+        and(
+          name ? filterColumn({ column: courses.name, value: name }) : undefined,
+          subjectId ? eq(courses.subjectId, subjectId) : undefined,
+          eq(courses.id, courseTracker.courseId),
+        )
+      )
+      .innerJoin(subjects, eq(subjects.id, courses.id));
+    return data
+
+  }
+  const data = await db.select({
+    id: courses.id,
+    name: courses.name,
+    subjectId: courses.subjectId,
+    imageUrl: courses.imageUrl,
+    description: courses.description,
+    subject: {
+      name: subjects.name
+    },
+  })
+    .from(courseTracker)
+    .where(
+      and(
+        eq(courseTracker.userId, currentUserId),
+        arrayOverlaps(courseTracker.permissions, getPermissions({
+          action: ACTIONS.CAN_VIEW_DASHBOARD
+        }) as string[]),
+      )
+    )
+    .innerJoin(courses,
+      and(
+        name ? filterColumn({ column: courses.name, value: name }) : undefined,
+        subjectId ? eq(courses.subjectId, subjectId) : undefined,
+        eq(courses.id, courseTracker.courseId)
+      )
+    )
+    .innerJoin(subjects, eq(subjects.id, courses.id));
+  return data
+}
+export type Dashboard = Awaited<ReturnType<typeof getAdminData>>;
 
 
-export async function getDashboardData() {
+export async function getDashboardData({
+  name,
+  subjectId,
+}: {
+  name: string | undefined,
+  subjectId: number | undefined
+}) {
   return await db.query.courses.findMany({
-    where: (courses, { eq }) => eq(courses.isPublic, true),
+    where: (courses, { eq, and }) => and(
+      name ? filterColumn({ column: courses.name, value: name }) : undefined,
+      subjectId ? eq(courses.subjectId, subjectId) : undefined,
+      eq(courses.isPublic, true)
+    ),
     columns: {
       id: true,
       name: true,
@@ -94,6 +176,18 @@ export const coursesRouter = createTRPCRouter({
 
       return data;
     }),
+  getContributors: publicProcedure
+    .input(z.object({
+      id: z.number()
+    })).query(async ({ ctx, input }) => {
+      return await ctx.db.select({
+        id: users.id,
+        name: users.id,
+        image: users.image
+      })
+        .from(users)
+        .leftJoin(courseTracker, and(eq(courseTracker.courseId, input.id), not(arrayContains(courseTracker.permissions, ["none"]))))
+    })
 
 })
 

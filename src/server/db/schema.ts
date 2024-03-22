@@ -24,7 +24,7 @@ import { z } from "zod";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `ocw_${name}`);
+export const createTable = pgTableCreator((name) => `ocw1_${name}`);
 export const users = createTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
@@ -38,6 +38,8 @@ export const users = createTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
+  subjectsTracker: many(subjectTracker),
+  coursesTracker: many(courseTracker),
 }));
 
 export const accounts = createTable(
@@ -176,7 +178,7 @@ export const subjectTracker = createTable(
   {
     userId: text("userId").notNull(),
     subjectId: integer("subjectId").notNull(),
-    permissions: json("permissions").$type<SubjectPermission[]>().notNull(),
+    permissions: text("permissions").array().notNull(),
   },
   (t) => ({
     pk: primaryKey(t.userId, t.subjectId),
@@ -199,7 +201,7 @@ export const courseTracker = createTable(
   {
     userId: text("userId").notNull(),
     courseId: integer("courseId").notNull(),
-    permissions: json("permissions").$type<CoursePermission[]>().notNull(),
+    permissions: text("permissions").array().notNull(),
   },
   (t) => ({
     pk: primaryKey(t.userId, t.courseId),

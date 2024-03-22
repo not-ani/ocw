@@ -20,3 +20,21 @@ export type CoursePermissions = CoursePermission[];
 export const subject_permissions = ["read:users", "add:courses"];
 export type SubjectPermission = (typeof subject_permissions)[number];
 export type SubjectPermissions = SubjectPermission[];
+
+export enum ACTIONS {
+  CAN_VIEW_DASHBOARD
+}
+
+export function getSenario({
+  action
+}: {
+  action: ACTIONS
+}) {
+  switch (action) {
+    case ACTIONS.CAN_VIEW_DASHBOARD:
+      return ["add:tags", "read:users", "edit:lessons", "edit:courses"] as CoursePermissions as string[]
+    default:
+      break;
+  }
+
+}

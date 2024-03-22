@@ -101,7 +101,7 @@ export const LessonsForm = ({
   }
 
   const onEdit = (id: number) => {
-    router.push(`/courses/${courseId}/units/${unitId}/lesson/${id}?edit=true`);
+    router.push(`/courses/${courseId}/units/${unitId}/lessons/${id}?edit=true`);
   }
 
   return (

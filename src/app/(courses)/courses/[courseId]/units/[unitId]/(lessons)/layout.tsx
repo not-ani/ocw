@@ -32,10 +32,11 @@ export default async function Layout(props: {
   const data = await getUnits(parseInt(courseId));
 
   return (
-    <div className="">
+    <div className="h-full">
       <div className="flex flex-row">
-        <Sidebar data={data} unitId={parseInt(unitId)} lessonId={parseInt(lessonId)} courseId={parseInt(courseId)} />
-        <div className="p-10 pr-4">{props.children}</div>
+        <Sidebar data={data} unitId={parseInt(unitId)} lessonId={parseInt(lessonId)} courseId={parseInt(courseId)}>
+          <div className="p-10 pr-4">{props.children}</div>
+        </Sidebar>
       </div>
     </div>
   );

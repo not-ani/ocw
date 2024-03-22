@@ -13,6 +13,10 @@ import { ChaptersForm } from "./_components/units-form";
 import { Actions } from "./_components/actions";
 import { db } from "@/server/db";
 import { asc } from "drizzle-orm";
+import { getCurrentUser, getPermissions } from "@/server/auth";
+import { sessionsRelations } from "@/server/db/schema";
+import { hasCoursePermission } from "@/lib/permissions";
+import { ACTIONS, CoursePermissions, getSenario } from "@/types/permissions";
 
 const CourseIdPage = async ({
   params
@@ -21,7 +25,21 @@ const CourseIdPage = async ({
 }) => {
   noStore()
 
+  const session = await getCurrentUser()
+  if (!session || !session.user) return redirect(`/api/auth/signin`)
+
+
   const courseId = parseInt(params.courseId)
+
+  if (!hasCoursePermission({
+    session: session,
+    courseId: courseId,
+    requiredPermissions: getSenario({
+      action: ACTIONS.CAN_VIEW_DASHBOARD
+    }) as CoursePermissions
+  })) {
+    redirect(`/unauthorized`)
+  }
 
   const course = await db.query.courses.findFirst({
     where: (courses, { eq }) => eq(courses.id, courseId),
