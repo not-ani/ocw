@@ -1,8 +1,8 @@
 
 import { CourseCard, CourseCardFrk } from "@/components/course-card";
-import { Dashboard } from "@/server/api/routers/courseRouter";
+import { type Dashboard } from "@/server/api/routers/courseRouter";
 import { db } from "@/server/db";
-import { RouterOutputs } from "@/types/trpc";
+import { type RouterOutputs } from "@/types/trpc";
 
 type CourseWithProgressWithCategory = RouterOutputs["courses"]["getDashboardData"]
 interface CoursesListProps {
@@ -22,9 +22,9 @@ export const CoursesList = ({
               key={item.id}
               id={item.id}
               title={item.name}
-              imageUrl={item.imageUrl!}
+              imageUrl={item.imageUrl}
               unitLengths={item.units.length}
-              category={item?.subject?.name!}
+              category={item?.subject?.name}
             />
           )
         })}
@@ -59,9 +59,9 @@ export const CoursesListDashboard = ({
               key={item.id}
               id={item.id}
               title={item.name}
-              imageUrl={item.imageUrl!}
+              imageUrl={item.imageUrl}
               unitLengths={ca.length || 0}
-              category={item?.subject?.name!}
+              category={item?.subject?.name}
             />
           )
         })}

@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 
 import { UploadDropzone } from "@/lib/uploadthing";
-import { ourFileRouter } from "@/app/api/uploadthing/core";
+import { type ourFileRouter } from "@/app/api/uploadthing/core";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;

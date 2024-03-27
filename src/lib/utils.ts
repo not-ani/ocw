@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from "clsx"
-import { Column, ColumnBaseConfig, ColumnDataType, like, notLike, eq, not } from "drizzle-orm";
+import { type Column, type ColumnBaseConfig, type ColumnDataType, like, notLike, eq, not } from "drizzle-orm";
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge"
 import { z } from "zod";
@@ -51,7 +51,7 @@ export function filterColumn({
   }
 }
 import { type Session } from "next-auth";
-import { UserPermission, CoursePermission, SubjectPermission } from "@/types/permissions";
+import { type UserPermission, type CoursePermission, type SubjectPermission } from "@/types/permissions";
 
 export const hasPermission = (session: Session, permissions: UserPermission[]) => {
   if (!session || !session.user) return false;

@@ -7,7 +7,7 @@ import { Loader2, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Units as Chapter, Lessons, Units } from "@/server/db/schema";
+import { Units as Chapter, type Lessons, type Units } from "@/server/db/schema";
 import { Course } from "@/server/db/schema";
 
 import {

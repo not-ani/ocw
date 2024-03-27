@@ -1,5 +1,5 @@
 import { courseTracker } from "@/server/db/schema";
-import { CoursePermission } from "@/types/permissions";
+import { type CoursePermission } from "@/types/permissions";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";

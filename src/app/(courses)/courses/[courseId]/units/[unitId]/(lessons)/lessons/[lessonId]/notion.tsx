@@ -1,6 +1,6 @@
 import React from 'react'
 import "react-notion/src/styles.css";
-import { BlockMapType, NotionRenderer } from 'react-notion'
+import { type BlockMapType, NotionRenderer } from 'react-notion'
 
 export const Notion = async (props: {
   id: string

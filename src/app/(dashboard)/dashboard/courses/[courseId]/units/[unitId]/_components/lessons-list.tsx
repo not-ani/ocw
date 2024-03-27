@@ -5,13 +5,13 @@ import {
   DragDropContext,
   Droppable,
   Draggable,
-  DropResult,
+  type DropResult,
 } from "@hello-pangea/dnd";
 import { Grip, Pencil } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Lessons } from "@/server/db/schema";
+import { type Lessons } from "@/server/db/schema";
 
 interface ChaptersListProps {
   items: Lessons[];

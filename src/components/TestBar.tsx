@@ -4,7 +4,7 @@ import { ChevronDown, Play } from "lucide-react";
 import Link from "next/link";
 import { Button } from './ui/button';
 import { PanelLeft, PanelRight } from 'lucide-react';
-import { RouterOutputs } from '@/types/trpc';
+import { type RouterOutputs } from '@/types/trpc';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from '@/lib/utils';
 

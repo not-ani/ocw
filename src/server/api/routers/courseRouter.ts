@@ -62,7 +62,7 @@ export async function getAdminData({
         eq(courseTracker.userId, currentUserId),
         arrayOverlaps(courseTracker.permissions, getPermissions({
           action: ACTIONS.CAN_VIEW_DASHBOARD
-        }) as string[]),
+        })!),
       )
     )
     .innerJoin(courses,

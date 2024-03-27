@@ -7,8 +7,8 @@ import { Loader2, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Units as Chapter } from "@/server/db/schema";
-import { Course } from "@/server/db/schema";
+import { type Units as Chapter } from "@/server/db/schema";
+import { type Course } from "@/server/db/schema";
 
 import {
   Form,

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import { SearchInput } from "./search-input";
 import { UserAccountNav } from "@/components/user-account-nav";
-import { Session } from "next-auth";
+import { type Session } from "next-auth";
 import SignInButton from "./SignInButton";
 import { ModeToggle } from "@/components/color";
 

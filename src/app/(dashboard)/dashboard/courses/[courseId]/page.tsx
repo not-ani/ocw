@@ -16,7 +16,7 @@ import { asc } from "drizzle-orm";
 import { getCurrentUser, getPermissions } from "@/server/auth";
 import { sessionsRelations } from "@/server/db/schema";
 import { hasCoursePermission } from "@/lib/permissions";
-import { ACTIONS, CoursePermissions, getSenario } from "@/types/permissions";
+import { ACTIONS, type CoursePermissions, getSenario } from "@/types/permissions";
 
 const CourseIdPage = async ({
   params

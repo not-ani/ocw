@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { handleError } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { Button } from "../ui/button";
-import { CoursePermission, course_permissions } from "@/types/permissions";
+import { type CoursePermission, course_permissions } from "@/types/permissions";
 
 export function ManageCoursePermissions(props: {
   user: {

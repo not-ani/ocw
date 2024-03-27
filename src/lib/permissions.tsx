@@ -1,5 +1,5 @@
-import { CoursePermission, SubjectPermission, UserPermission } from "@/types/permissions";
-import { Session } from "next-auth";
+import { type CoursePermission, type SubjectPermission, type UserPermission } from "@/types/permissions";
+import { type Session } from "next-auth";
 
 export const hasPermission = (session: Session, permissions: UserPermission[]) => {
   if (!session || !session.user) return false;

@@ -10,7 +10,7 @@ import DiscordProvider from "next-auth/providers/google";
 import { env } from "@/env";
 import { db } from "@/server/db";
 import { createTable } from "@/server/db/schema";
-import { CoursePermission, CoursePermissions, SubjectPermission, SubjectPermissions, UserPermissions } from "@/types/permissions";
+import { type CoursePermission, type CoursePermissions, type SubjectPermission, type SubjectPermissions, type UserPermissions } from "@/types/permissions";
 import { redirect } from "next/navigation";
 
 
