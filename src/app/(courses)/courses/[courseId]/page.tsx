@@ -84,7 +84,7 @@ export default async function Page(props: {
 
   return (
     <div className="flex flex-col">
-      <div className="flex w-full justify-center p-5">
+      <div className="md:flex-row flex flex-col justify-center items-center w-full p-5">
         <Image
           src={course.imageUrl}
           width={300}
@@ -94,7 +94,6 @@ export default async function Page(props: {
         />
         <div className="ml-4 flex flex-col">
           <h3 className="text-3xl font-bold">{course.name}</h3>
-          <Badge className="w-[80px]">{course.subject.field}</Badge>
         </div>
       </div>
       <div className="my-4 p-4">

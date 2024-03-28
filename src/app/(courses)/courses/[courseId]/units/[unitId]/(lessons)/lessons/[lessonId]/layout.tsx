@@ -31,13 +31,20 @@ export default async function Layout(props: {
 
   return (
     <html>
-      <body> 
-    <div className="h-full">
-      <div className="flex flex-row">
-           <LessonsSidebar data={data} unitId={parseInt(unitId)} lessonId={parseInt(lessonId)} courseId={parseInt(courseId)} /> 
-          <div className="p-10 pr-4">{props.children}</div>
-      </div>
-    </div>
+      <body>
+        <div className="h-full">
+          <div className="flex flex-row">
+            <div className="hidden md:block">
+              <LessonsSidebar data={data}
+                unitId={parseInt(unitId)}
+                lessonId={parseInt(lessonId)}
+                courseId={parseInt(courseId)} />
+            </div>
+            <div className="p-10 pr-4">
+              {props.children}
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   );

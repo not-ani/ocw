@@ -12,7 +12,7 @@ export default function LessonsSidebar(props: {
   unitId: number;
 }) {
   const { data, lessonId, courseId } = props;
-const [openUnits, setOpenUnits] = useState<string[]>(data.map((unit) => unit.id.toString()));
+  const [openUnits, setOpenUnits] = useState<string[]>(data.map((unit) => unit.id.toString()));
 
   const handleOpenChange = (unitId: string) => {
     setOpenUnits((currentOpenUnits) =>
@@ -44,16 +44,16 @@ const [openUnits, setOpenUnits] = useState<string[]>(data.map((unit) => unit.id.
                     <ul className="grid gap-1">
                       {unit.lessons.map((lesson) => {
                         return (
-                        <li key={lesson.id}>
-                          <Link
-                            className={`flex items-center rounded-md px-3 py-2 text-sm font-medium w-full dark:hover:bg-gray-800 ${lessonId === lesson.id ? "font-semibold text-red-400" : "text-gray-600 hover:text-primary"}`}
-                            href={`/courses/${courseId}/units/${unit.id}/lessons/${lesson.id}`}
-                          >
-                            <Play className="h-4 w-4 mr-2" />
-                            {lesson.name}
-                          </Link>
-                        </li>
-                       )
+                          <li key={lesson.id}>
+                            <Link
+                              className={`flex items-center rounded-md px-3 py-2 text-sm font-medium w-full dark:hover:bg-gray-800 ${lessonId === lesson.id ? "font-semibold text-red-400" : "text-gray-600 hover:text-primary"}`}
+                              href={`/courses/${courseId}/units/${unit.id}/lessons/${lesson.id}`}
+                            >
+                              <Play className="h-4 w-4 mr-2" />
+                              {lesson.name}
+                            </Link>
+                          </li>
+                        )
                       })}
                     </ul>
                   </CollapsibleContent>
