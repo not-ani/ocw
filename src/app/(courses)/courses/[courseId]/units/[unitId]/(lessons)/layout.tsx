@@ -2,8 +2,6 @@ import { db } from "@/server/db";
 import { lessons, units } from "@/server/db/schema";
 import { asc } from "drizzle-orm";
 import React, { cache } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ChevronRight, PanelLeftClose } from "lucide-react";
 import Sidebar from "@/components/TestBar";
 
 const getUnits = cache(async (courseId: number) => {

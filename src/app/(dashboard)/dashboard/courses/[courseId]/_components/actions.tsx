@@ -1,11 +1,9 @@
 "use client";
 
 import { Trash } from "lucide-react";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { api } from "@/trpc/react";
 import { ConfirmModal } from "@/components/confirm-modal";
 
@@ -20,7 +18,6 @@ export const Actions = ({
   courseId,
   isPublished
 }: ActionsProps) => {
-  const router = useRouter();
   const { mutate: update, isPending } = api.courses.update.useMutation({
 
   })

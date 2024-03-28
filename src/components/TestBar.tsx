@@ -15,9 +15,8 @@ export default function LessonSidebar(props: {
   children: React.ReactNode;
   courseId: number;
   unitId: number;
-  isMobile?: boolean;
 }) {
-  const { data, lessonId, courseId, isMobile } = props;
+  const { data, lessonId, courseId } = props;
   const [openUnits, setOpenUnits] = useState<string[]>([]);
 
   const handleOpenChange = (unitId: string) => {
@@ -47,6 +46,7 @@ export default function LessonSidebar(props: {
                 {data.map((unit) => (
                   <div key={unit.id} className=""> {/* Adjust padding here if necessary to align with the sidebar design */}
                     <Collapsible
+                      key={unit.id}
                       open={openUnits.includes(unit.id.toString())}
                       onOpenChange={() => handleOpenChange(unit.id.toString())}
                       className="w-full"

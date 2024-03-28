@@ -1,4 +1,4 @@
-import { Menu, PanelLeftOpen } from "lucide-react";
+import { PanelLeftOpen } from "lucide-react";
 
 import {
   Sheet,

@@ -7,8 +7,7 @@ import { Loader2, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Units as Chapter, type Lessons, type Units } from "@/server/db/schema";
-import { Course } from "@/server/db/schema";
+import { type Lessons, type Units } from "@/server/db/schema";
 
 import {
   Form,
@@ -18,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { cn, extractNotionId, handleError } from "@/lib/utils";
+import { cn, handleError } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 
 import { ChaptersList } from "./lessons-list";

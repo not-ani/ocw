@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/accordion";
 import Link from "next/link";
 import { courseTracker, users } from "@/server/db/schema";
-import { CoursePermissions } from "@/types/permissions";
 
 const getCourse = cache(async (courseId: number) => {
   noStore()

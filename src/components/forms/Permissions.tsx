@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 import AutoForm from "../ui/auto-form";
 import { toast } from "sonner";
@@ -9,7 +9,7 @@ import { api } from "@/trpc/react";
 import { Button } from "../ui/button";
 import { type CoursePermission, course_permissions } from "@/types/permissions";
 
-export function ManageCoursePermissions(props: {
+export const ManageCoursePermissions = memo(function ManageCoursePermissions(props: {
   user: {
     userId: string;
     currentPermission: CoursePermission[];
@@ -105,4 +105,4 @@ export function ManageCoursePermissions(props: {
       ></AutoForm>
     </div>
   );
-}
+})

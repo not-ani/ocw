@@ -1,9 +1,8 @@
 import React from 'react'
 
-export const Navbar = (props: {}) => {
+export const Navbar = () => {
   return (
     <div className=''>
-
 
     </div>
   )

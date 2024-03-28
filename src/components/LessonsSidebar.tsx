@@ -53,7 +53,7 @@ export default function Sidebar(props: {
             </div>
             <CollapsibleContent className="space-y-2">
               {unit.lessons.map((lesson) => (
-                <div className="flex flex-row items-center pl-2 gap-2">
+                <div className="flex flex-row items-center pl-2 gap-2" key={lesson.id}>
                   <Play className="h-4 w-4" />
                   <Link
                     href={`/courses/${courseId}/units/${unit.id}/lessons/${lesson.id}`}

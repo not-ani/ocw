@@ -135,7 +135,6 @@ export const getServerAuthSession = () => getServerSession(authOptions);
 
 export const getCurrentUser = async () => {
   const session = await getServerSession(authOptions);
-  const user = session?.user
   return session;
 };
 

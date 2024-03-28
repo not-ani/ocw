@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
-import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
+import { LayoutDashboard, ListChecks } from "lucide-react";
 
 import { IconBadge } from "@/components/icon-badge";
 import { Banner } from "@/components/banner";
@@ -13,8 +13,7 @@ import { ChaptersForm } from "./_components/units-form";
 import { Actions } from "./_components/actions";
 import { db } from "@/server/db";
 import { asc } from "drizzle-orm";
-import { getCurrentUser, getPermissions } from "@/server/auth";
-import { sessionsRelations } from "@/server/db/schema";
+import { getCurrentUser } from "@/server/auth";
 import { hasCoursePermission } from "@/lib/permissions";
 import { ACTIONS, type CoursePermissions, getSenario } from "@/types/permissions";
 
