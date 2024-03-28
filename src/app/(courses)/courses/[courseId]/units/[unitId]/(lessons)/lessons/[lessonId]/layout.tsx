@@ -2,7 +2,7 @@ import { db } from "@/server/db";
 import { lessons, units } from "@/server/db/schema";
 import { asc } from "drizzle-orm";
 import React, { cache } from "react";
-import Sidebar from "@/components/TestBar";
+import LessonsSidebar from "./Sidebar";
 
 const getUnits = cache(async (courseId: number) => {
   const data = await db.query.units.findMany({
@@ -30,12 +30,15 @@ export default async function Layout(props: {
   const data = await getUnits(parseInt(courseId));
 
   return (
+    <html>
+      <body> 
     <div className="h-full">
       <div className="flex flex-row">
-        <Sidebar data={data} unitId={parseInt(unitId)} lessonId={parseInt(lessonId)} courseId={parseInt(courseId)}>
+           <LessonsSidebar data={data} unitId={parseInt(unitId)} lessonId={parseInt(lessonId)} courseId={parseInt(courseId)} /> 
           <div className="p-10 pr-4">{props.children}</div>
-        </Sidebar>
       </div>
     </div>
+      </body>
+    </html>
   );
 }
