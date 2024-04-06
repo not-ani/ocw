@@ -33,7 +33,7 @@ export default function LessonsSidebar(props: {
   }));
 
   return (
-    <div className="flex flex-col w-full min-w-[250px] border-r border-gray-200 dark:border-gray-800 p-5">
+    <div className="flex flex-col h-full w-full min-w-[250px] border-r border-gray-200 dark:border-gray-800 p-5">
       <div className="flex-1 flex flex-col">
         <nav className="flex-1 flex flex-col overflow-y-auto">
           <Tree
