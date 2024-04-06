@@ -5,12 +5,12 @@ import { LayoutDashboard, ListChecks } from "lucide-react";
 import { IconBadge } from "@/components/icon-badge";
 import { Banner } from "@/components/banner";
 
-import { TitleForm } from "./_components/title-form";
-import { DescriptionForm } from "./_components/description-form";
-import { ImageForm } from "./_components/image-form";
-import { CategoryForm } from "./_components/category-form";
-import { ChaptersForm } from "./_components/units-form";
-import { Actions } from "./_components/actions";
+import { TitleForm } from "../_components/title-form";
+import { DescriptionForm } from "../_components/description-form";
+import { ImageForm } from "../_components/image-form";
+import { CategoryForm } from "../_components/category-form";
+import { ChaptersForm } from "../_components/units-form";
+import { Actions } from "../_components/actions";
 import { db } from "@/server/db";
 import { asc } from "drizzle-orm";
 import { getCurrentUser } from "@/server/auth";
@@ -82,7 +82,7 @@ const CourseIdPage = async ({
           label="This course is unpublished. It will not be visible to the students."
         />
       )}
-      <div className="p-6">
+      <div className="p-1">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
             <h1 className="text-2xl font-medium">
